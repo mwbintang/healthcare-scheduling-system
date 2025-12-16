@@ -5,6 +5,7 @@ import { join } from 'path'
 import { GraphqlHealthModule } from './graphql-health/graphql-health.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { RepositoryModule } from './repository/repository.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     GraphqlHealthModule,
     PrismaModule,
     AuthModule,
+    RepositoryModule
   ],
 })
 export class AppModule {}

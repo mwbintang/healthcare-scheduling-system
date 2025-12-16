@@ -2,6 +2,31 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AuthPayload {
+  token: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  login(input: LoginInput!): AuthPayload!
+  register(input: RegisterInput!): AuthPayload!
+}
+
 type Query {
   health: String!
+  validateToken(token: String!): TokenValidationResult!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+}
+
+type TokenValidationResult {
+  email: String!
+  userId: String!
 }
