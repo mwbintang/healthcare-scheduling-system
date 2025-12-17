@@ -3,8 +3,8 @@ import { AuthService } from './auth.service'
 import { RegisterInput } from './dto/register.input'
 import { LoginInput } from './dto/login.input'
 import { ValidateTokenInput } from './dto/validate-token.input'
-import { AuthPayload } from './models/auth.model'
-import { TokenValidationResult } from './models/token-validation.model'
+import { AuthPayload } from './entities/auth.model'
+import { TokenValidationResult } from './entities/token-validation.model'
 
 @Resolver()
 export class AuthResolver {

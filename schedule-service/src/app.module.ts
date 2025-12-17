@@ -4,6 +4,11 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { GraphqlHealthModule } from './graphql-health/graphql-health.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ProviderModule } from './provider/provider.module';
+import { CustomerModule } from './customer/customer.module';
+import { RepositoryModule } from './repository/repository.module';
+import { DoctorModule } from './doctor/doctor.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -15,6 +20,11 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     GraphqlHealthModule,
     PrismaModule,
+    ProviderModule,
+    CustomerModule,
+    DoctorModule,
+    ScheduleModule,
+    RepositoryModule,
   ],
 })
 export class AppModule {}
