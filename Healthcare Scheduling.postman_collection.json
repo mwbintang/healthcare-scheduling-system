@@ -1,0 +1,1939 @@
+{
+	"info": {
+		"_postman_id": "f15a299e-f56f-4016-80f7-24de381fda89",
+		"name": "Healthcare Scheduling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33794790",
+		"_collection_link": "https://qinerja-docs.postman.co/workspace/My-Workspace~d9ed5c4a-244e-426d-8384-31759377dca2/collection/33794790-f15a299e-f56f-4016-80f7-24de381fda89?action=share&source=collection_link&creator=33794790"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Safety checks\r",
+									"if (!response || !response.data) {\r",
+									"    console.log(\"❌ No data in response\", response);\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"// Adjust path if your login mutation name is different\r",
+									"const token = response.data?.login?.token;\r",
+									"\r",
+									"if (token) {\r",
+									"    pm.environment.set(\"ACCESS_TOKEN\", token);\r",
+									"    console.log(\"✅ Token saved to environment\");\r",
+									"} else {\r",
+									"    console.log(\"❌ Token not found in response\", response);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation register {\r\n    register(\r\n    input: {\r\n      name: \"Test Last\"\r\n      email: \"testlast@example.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation register {\r\n    register(\r\n    input: {\r\n      name: \"John Doe xx12\"\r\n      email: \"john.doexx12@example.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "384"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"180-XCGbtDxUtQ0OQLB+b0CxHcn0wac\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 21:08:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"register\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YzhkOGJkMy0yZmFlLTQ3M2MtYjQ4YS03YzZkYjNiMzRiODEiLCJlbWFpbCI6ImpvaG4uZG9leHgxMkBleGFtcGxlLmNvbSIsImlhdCI6MTc2NjE3ODUyMywiZXhwIjoxNzY2MTgyMTIzfQ.m6tg318lcfGKlddF_fpBldFFC4r7FLOpPw06mUql_VU\",\n            \"profile\": {\n                \"email\": \"john.doexx12@example.com\",\n                \"id\": \"5c8d8bd3-2fae-473c-b48a-7c6db3b34b81\",\n                \"name\": \"John Doe xx12\"\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Safety checks\r",
+									"if (!response || !response.data) {\r",
+									"    console.log(\"❌ No data in response\", response);\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"// Adjust path if your login mutation name is different\r",
+									"const token = response.data?.login?.token;\r",
+									"\r",
+									"if (token) {\r",
+									"    pm.environment.set(\"ACCESS_TOKEN\", token);\r",
+									"    console.log(\"✅ Token saved to environment\");\r",
+									"} else {\r",
+									"    console.log(\"❌ Token not found in response\", response);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation login {\r\n    login(\r\n    input: {\r\n      email: \"testlast@example.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation login {\r\n    login(\r\n    input: {\r\n      email: \"john.doexx12@example.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "381"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17d-srInwHAbg1zKe6q6gIDEcIG7/ug\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 21:15:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"login\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YzhkOGJkMy0yZmFlLTQ3M2MtYjQ4YS03YzZkYjNiMzRiODEiLCJlbWFpbCI6ImpvaG4uZG9leHgxMkBleGFtcGxlLmNvbSIsImlhdCI6MTc2NjE3ODkzNCwiZXhwIjoxNzY2MTgyNTM0fQ.Xm5t_j7tWE74bgBe3AeAUZQxlZRLLCPq6gyA9WUcelE\",\n            \"profile\": {\n                \"email\": \"john.doexx12@example.com\",\n                \"id\": \"5c8d8bd3-2fae-473c-b48a-7c6db3b34b81\",\n                \"name\": \"John Doe xx12\"\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Validate Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "test",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ValidateToken {\r\n  validateToken(token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YzhkOGJkMy0yZmFlLTQ3M2MtYjQ4YS03YzZkYjNiMzRiODEiLCJlbWFpbCI6ImpvaG4uZG9leHgxMkBleGFtcGxlLmNvbSIsImlhdCI6MTc2NjE3ODkzNCwiZXhwIjoxNzY2MTgyNTM0fQ.Xm5t_j7tWE74bgBe3AeAUZQxlZRLLCPq6gyA9WUcelE\") {\r\n    userId\r\n    email\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Validate Token Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "test",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ValidateToken {\r\n  validateToken(token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YzhkOGJkMy0yZmFlLTQ3M2MtYjQ4YS03YzZkYjNiMzRiODEiLCJlbWFpbCI6ImpvaG4uZG9leHgxMkBleGFtcGxlLmNvbSIsImlhdCI6MTc2NjE3ODkzNCwiZXhwIjoxNzY2MTgyNTM0fQ.Xm5t_j7tWE74bgBe3AeAUZQxlZRLLCPq6gyA9WUcelE\") {\r\n    userId\r\n    email\r\n  }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "112"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"70-Nk7mJ+nk/kxaqNEz2hdn6CpwqSI\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 21:18:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"validateToken\": {\n            \"userId\": \"5c8d8bd3-2fae-473c-b48a-7c6db3b34b81\",\n            \"email\": \"john.doexx12@example.com\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "test",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateEmail {\r\n        updateEmail(input: {\r\n            id:\"b2ff2b87-61d7-4fa6-9486-beb77c1e3d98\",\r\n            email:\"jfk@email.com\"\r\n        }) {\r\n          id\r\n          name\r\n          email\r\n        }\r\n      }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Email Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "test",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation UpdateEmail {\r\n        updateEmail(input: {\r\n            id:\"b2ff2b87-61d7-4fa6-9486-beb77c1e3d98\",\r\n            email:\"jfk@email.com\"\r\n        }) {\r\n          id\r\n          name\r\n          email\r\n        }\r\n      }",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6b-u6FAMX4PppYgvipSUiKapyBN2is\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 21:26:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateEmail\": {\n            \"id\": \"b2ff2b87-61d7-4fa6-9486-beb77c1e3d98\",\n            \"name\": null,\n            \"email\": \"jfk@email.com\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "test",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteUser {\r\n  deleteUser(id: \"f65dac1f-6634-48d6-8570-ceb439258632\") {\r\n    success\r\n    message\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete User Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "test",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation DeleteUser {\r\n  deleteUser(id: \"f65dac1f-6634-48d6-8570-ceb439258632\") {\r\n    success\r\n    message\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-QE2CmSAPrTRL6Y7AdzAW89DaCFg\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 22:37:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteUser\": {\n            \"success\": true,\n            \"message\": \"Success delete customer\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "Create Doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateDoctor {\r\n  createDoctor(\r\n    input: {\r\n      name: \"John Doe 8\"\r\n    }\r\n  ) {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Doctor Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation CreateDoctor {\r\n  createDoctor(\r\n    input: {\r\n      name: \"John Doe 8\"\r\n    }\r\n  ) {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "170"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"aa-Tz0EfUd5YMrBEStmBeq4nitj2ng\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 16:55:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"createDoctor\": {\n            \"id\": \"baab5e6c-a32d-4424-a86a-d9c6cc8cd96b\",\n            \"name\": \"John Doe 8\",\n            \"createdAt\": \"2025-12-19T16:55:02.407Z\",\n            \"updatedAt\": \"2025-12-19T16:55:02.407Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch Doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetDoctors {\r\n  doctors(page: 1, limit: 10) {\r\n    data {\r\n      id\r\n      name\r\n      createdAt\r\n      updatedAt\r\n    }\r\n    page\r\n    limit\r\n    total\r\n    totalPages\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch All Doctor Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query GetDoctors {\r\n  doctors(page: 1, limit: 10) {\r\n    data {\r\n      id\r\n      name\r\n      createdAt\r\n      updatedAt\r\n    }\r\n    page\r\n    limit\r\n    total\r\n    totalPages\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "221"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"dd-perDwgYR8YQcGK8QVu/LLglFXrk\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 17:00:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"doctors\": {\n            \"data\": [\n                {\n                    \"id\": \"baab5e6c-a32d-4424-a86a-d9c6cc8cd96b\",\n                    \"name\": \"John Doe 8\",\n                    \"createdAt\": \"2025-12-19T16:55:02.407Z\",\n                    \"updatedAt\": \"2025-12-19T16:55:02.407Z\"\n                }\n            ],\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 1,\n            \"totalPages\": 1\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateDoctor {\r\n  updateDoctor(\r\n        id:\"a9bfede3-089a-4b62-9d10-248b4572eabd\",\r\n    input: {\r\n      name: \"Edit John Doe 88\"\r\n    }\r\n  ) {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit Product Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation UpdateDoctor {\r\n  updateDoctor(\r\n        id:\"baab5e6c-a32d-4424-a86a-d9c6cc8cd96b\",\r\n    input: {\r\n      name: \"Edit John Doe 8\"\r\n    }\r\n  ) {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"af-hfdJKL3SjnAWK1BQbFyDQ6+ucZk\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 17:07:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateDoctor\": {\n            \"id\": \"baab5e6c-a32d-4424-a86a-d9c6cc8cd96b\",\n            \"name\": \"Edit John Doe 8\",\n            \"createdAt\": \"2025-12-19T16:55:02.407Z\",\n            \"updatedAt\": \"2025-12-19T17:07:18.195Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Doctor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteDoctor {\r\n  deleteDoctor(id: \"9b2162da-b8ae-4d0d-b044-6ddf7596c4de\") {\r\n    success\r\n    message\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Doctor Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation DeleteDoctor {\r\n  deleteDoctor(id: \"bbb550eb-d220-431c-b92e-7865b7e876f8\") {\r\n    success\r\n    message\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-C2fnIHoimxDIKJhisrpDFmpJExE\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 17:40:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteDoctor\": {\n            \"success\": true,\n            \"message\": \"Success delete doctor\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch Doctor Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetDoctorDetail {\r\n  doctor(id: \"470e6ae0-9932-48cd-a459-f0c78c4dd411\") {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n    schedules {\r\n      id\r\n      objective\r\n      scheduledAt\r\n      createdAt\r\n      customer {\r\n        id\r\n        name\r\n        email\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch Doctor Detail Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query GetDoctorDetail {\r\n  doctor(id: \"470e6ae0-9932-48cd-a459-f0c78c4dd411\") {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n    schedules {\r\n      id\r\n      objective\r\n      scheduledAt\r\n      createdAt\r\n      customer {\r\n        id\r\n        name\r\n        email\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "179"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b3-FhhvlHHgKGcZIl13zni+CdfHgKw\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 17:52:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"doctor\": {\n            \"id\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\n            \"name\": \"John Doe 8\",\n            \"createdAt\": \"2025-12-19T17:42:57.739Z\",\n            \"updatedAt\": \"2025-12-19T17:42:57.739Z\",\n            \"schedules\": []\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateCustomer($input: CustomerInput!) {\r\n  updateCustomer(input: $input) {\r\n    id\r\n    name\r\n    email\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n  \"id\": \"20ecbc25-d87a-4daa-b34b-d4c83ac1830b\",\r\n    \"name\": \"Bintang Muhammad\",\r\n    \"email\": \"bintang@mail.com\"\r\n  }\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Update",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation UpdateCustomer($input: CustomerInput!) {\r\n  updateCustomer(input: $input) {\r\n    id\r\n    name\r\n    email\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+										"variables": "{\r\n  \"input\": {\r\n  \"id\": \"20ecbc25-d87a-4daa-b34b-d4c83ac1830b\",\r\n    \"name\": \"Bintang Muhammad\",\r\n    \"email\": \"bintang@mail.com\"\r\n  }\r\n}\r\n"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cd-aX6788mvqVsjBXqjLqZ/aj9s7PA\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 22:08:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateCustomer\": {\n            \"id\": \"20ecbc25-d87a-4daa-b34b-d4c83ac1830b\",\n            \"name\": \"Bintang Muhammad\",\n            \"email\": \"bintang@mail.com\",\n            \"createdAt\": \"2025-12-19T15:49:33.818Z\",\n            \"updatedAt\": \"2025-12-19T22:08:06.645Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "test",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateCustomer($input: CustomerInput!) {\r\n  createCustomer(input: $input) {\r\n    id\r\n    name\r\n    email\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+								"variables": "{\r\n  \"input\": {\r\n  \"id\": \"test111\",\r\n    \"name\": \"Bintang Muhammad111\",\r\n    \"email\": \"bintang111@mail.com\"\r\n  }\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "test",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation CreateCustomer($input: CustomerInput!) {\r\n  createCustomer(input: $input) {\r\n    id\r\n    name\r\n    email\r\n    createdAt\r\n    updatedAt\r\n  }\r\n}",
+										"variables": "{\r\n  \"input\": {\r\n  \"id\": \"test111\",\r\n    \"name\": \"Bintang Muhammad111\",\r\n    \"email\": \"bintang111@mail.com\"\r\n  }\r\n}\r\n"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "182"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b6-O5z6WAm//ueSuzAO3apWVi9Ycus\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 22:10:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"createCustomer\": {\n            \"id\": \"test111\",\n            \"name\": \"Bintang Muhammad111\",\n            \"email\": \"bintang111@mail.com\",\n            \"createdAt\": \"2025-12-19T22:10:11.135Z\",\n            \"updatedAt\": \"2025-12-19T22:10:11.135Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query CustomerPagination {\r\n  customers(page: 1, limit: 10) {\r\n    data {\r\n      id\r\n      name\r\n      createdAt\r\n      updatedAt\r\n    }\r\n    page\r\n    limit\r\n    total\r\n    totalPages\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch All Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query CustomerPagination {\r\n  customers(page: 1, limit: 10) {\r\n    data {\r\n      id\r\n      name\r\n      createdAt\r\n      updatedAt\r\n    }\r\n    page\r\n    limit\r\n    total\r\n    totalPages\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1513"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5e9-kokKPDbMsRRodG5J036cGM/ik58\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 22:12:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"customers\": {\n            \"data\": [\n                {\n                    \"id\": \"test111\",\n                    \"name\": \"Bintang Muhammad111\",\n                    \"createdAt\": \"2025-12-19T22:10:11.135Z\",\n                    \"updatedAt\": \"2025-12-19T22:10:11.135Z\"\n                },\n                {\n                    \"id\": \"577b541a-22b7-4a42-9573-da433c5d4d56\",\n                    \"name\": \"John Doe xx123\",\n                    \"createdAt\": \"2025-12-19T21:17:40.334Z\",\n                    \"updatedAt\": \"2025-12-19T21:17:40.334Z\"\n                },\n                {\n                    \"id\": \"5c8d8bd3-2fae-473c-b48a-7c6db3b34b81\",\n                    \"name\": \"John Doe xx12\",\n                    \"createdAt\": \"2025-12-19T21:08:43.409Z\",\n                    \"updatedAt\": \"2025-12-19T21:08:43.409Z\"\n                },\n                {\n                    \"id\": \"20ecbc25-d87a-4daa-b34b-d4c83ac1830b\",\n                    \"name\": \"Bintang Muhammad\",\n                    \"createdAt\": \"2025-12-19T15:49:33.818Z\",\n                    \"updatedAt\": \"2025-12-19T22:08:06.645Z\"\n                },\n                {\n                    \"id\": \"8cd772e0-4d7d-43e8-8c2f-340843d6ded1\",\n                    \"name\": \"John Doe 7\",\n                    \"createdAt\": \"2025-12-19T15:49:05.132Z\",\n                    \"updatedAt\": \"2025-12-19T15:49:05.132Z\"\n                },\n                {\n                    \"id\": \"77eac677-07f4-41a9-889a-7ccaf4dd1b94\",\n                    \"name\": \"John Doe 6\",\n                    \"createdAt\": \"2025-12-17T16:13:25.944Z\",\n                    \"updatedAt\": \"2025-12-17T16:13:25.944Z\"\n                },\n                {\n                    \"id\": \"ef183a36-1847-4fde-acbc-93384b78627a\",\n                    \"name\": \"John Doe 5\",\n                    \"createdAt\": \"2025-12-17T16:11:39.618Z\",\n                    \"updatedAt\": \"2025-12-17T16:11:39.618Z\"\n                },\n                {\n                    \"id\": \"5bb82d8a-4c99-45ba-82c3-f4dd1699da1c\",\n                    \"name\": \"John Doe 4\",\n                    \"createdAt\": \"2025-12-17T16:08:31.155Z\",\n                    \"updatedAt\": \"2025-12-17T16:08:31.155Z\"\n                },\n                {\n                    \"id\": \"2ee16a6a-50e4-4320-9e53-c3d4a9c82ff1\",\n                    \"name\": \"John Doe 3\",\n                    \"createdAt\": \"2025-12-17T15:39:01.844Z\",\n                    \"updatedAt\": \"2025-12-17T15:39:01.844Z\"\n                },\n                {\n                    \"id\": \"9d73437d-1442-457b-b69b-483138081fb1\",\n                    \"name\": \"John Doe 2\",\n                    \"createdAt\": \"2025-12-17T15:37:38.654Z\",\n                    \"updatedAt\": \"2025-12-17T15:37:38.654Z\"\n                }\n            ],\n            \"page\": 1,\n            \"limit\": 10,\n            \"total\": 11,\n            \"totalPages\": 2\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetDetail {\r\n  customer(id: \"77eac677-07f4-41a9-889a-7ccaf4dd1b94\") {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n    schedules {\r\n      id\r\n      objective\r\n      scheduledAt\r\n      createdAt\r\n      doctor {\r\n        id\r\n        name\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch Detail Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query GetDetail {\r\n  customer(id: \"77eac677-07f4-41a9-889a-7ccaf4dd1b94\") {\r\n    id\r\n    name\r\n    createdAt\r\n    updatedAt\r\n    schedules {\r\n      id\r\n      objective\r\n      scheduledAt\r\n      createdAt\r\n      doctor {\r\n        id\r\n        name\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "181"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b5-j21pxl4NpNkLUiHzJKxoZaOc0io\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 22:15:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"customer\": {\n            \"id\": \"77eac677-07f4-41a9-889a-7ccaf4dd1b94\",\n            \"name\": \"John Doe 6\",\n            \"createdAt\": \"2025-12-17T16:13:25.944Z\",\n            \"updatedAt\": \"2025-12-17T16:13:25.944Z\",\n            \"schedules\": []\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Delete {\r\n  deleteCustomer {\r\n    success\r\n    message\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation Delete {\r\n  deleteCustomer {\r\n    success\r\n    message\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57-bsmL/J6Wcr1e39mqL1KxRlDFIc8\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Dec 2025 23:09:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteCustomer\": {\n            \"success\": true,\n            \"message\": \"Customer deleted successfully\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Schedule",
+			"item": [
+				{
+					"name": "Create Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateSchedule {\r\n  createSchedule(\r\n    input: {\r\n      doctorId: \"470e6ae0-9932-48cd-a459-f0c78c4dd411\"\r\n      scheduledAt: \"2025-12-21T10:00:00.000Z\"\r\n      objective: \"General consultation\"\r\n    }\r\n  ) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n    }\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"input\": {\r\n    \"doctorId\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\r\n    \"scheduledAt\": \"2025-12-21T10:00:00.000Z\",\r\n    \"objective\": \"General Consultation\"\r\n  }\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Schedule Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation CreateSchedule {\r\n  createSchedule(\r\n    input: {\r\n      doctorId: \"470e6ae0-9932-48cd-a459-f0c78c4dd411\"\r\n      scheduledAt: \"2025-12-21T10:00:00.000Z\"\r\n      objective: \"General consultation\"\r\n    }\r\n  ) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n    }\r\n  }\r\n}\r\n",
+										"variables": "{\r\n  \"input\": {\r\n    \"doctorId\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\r\n    \"scheduledAt\": \"2025-12-21T10:00:00.000Z\",\r\n    \"objective\": \"General Consultation\"\r\n  }\r\n}\r\n"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "301"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12d-XGkkEpP+4XK7l3WlwmcbumFJ07A\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 20 Dec 2025 00:04:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"createSchedule\": {\n            \"id\": \"b0016795-cbb2-4599-a5ed-5bec47053220\",\n            \"scheduledAt\": \"2025-12-21T10:00:00.000Z\",\n            \"objective\": \"General consultation\",\n            \"doctor\": {\n                \"id\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\n                \"name\": \"John Doe 8\"\n            },\n            \"customer\": {\n                \"id\": \"852a55c7-a669-4506-bef9-cd5815591dee\",\n                \"name\": \"Test Last\"\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Schedule($id: ID!) {\r\n  schedule(id: $id) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n      email\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"id\": \"b0016795-cbb2-4599-a5ed-5bec47053220\"\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Detail Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query Schedule($id: ID!) {\r\n  schedule(id: $id) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n      email\r\n    }\r\n  }\r\n}",
+										"variables": "{\r\n  \"id\": \"b0016795-cbb2-4599-a5ed-5bec47053220\"\r\n}\r\n"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "326"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"146-ZPElzitB1/nz50EEj/7WeV9TNE4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 20 Dec 2025 00:07:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"schedule\": {\n            \"id\": \"b0016795-cbb2-4599-a5ed-5bec47053220\",\n            \"scheduledAt\": \"2025-12-21T10:00:00.000Z\",\n            \"objective\": \"General consultation\",\n            \"doctor\": {\n                \"id\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\n                \"name\": \"John Doe 8\"\n            },\n            \"customer\": {\n                \"id\": \"852a55c7-a669-4506-bef9-cd5815591dee\",\n                \"name\": \"Test Last\",\n                \"email\": \"testlast@example.com\"\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Schedules($doctorId: ID, $page: Int, $limit: Int) {\r\n  schedules(doctorId: $doctorId, page: $page, limit: $limit) {\r\n    items {\r\n      id\r\n      scheduledAt\r\n      objective\r\n      doctor {\r\n        id\r\n        name\r\n      }\r\n      customer {\r\n        id\r\n        name\r\n        email\r\n      }\r\n    }\r\n    total\r\n    page\r\n    limit\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"doctorId\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\r\n  \"page\": 1,\r\n  \"limit\": 10\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query Schedules($doctorId: ID, $page: Int, $limit: Int) {\r\n  schedules(doctorId: $doctorId, page: $page, limit: $limit) {\r\n    items {\r\n      id\r\n      scheduledAt\r\n      objective\r\n      doctor {\r\n        id\r\n        name\r\n      }\r\n      customer {\r\n        id\r\n        name\r\n        email\r\n      }\r\n    }\r\n    total\r\n    page\r\n    limit\r\n  }\r\n}\r\n",
+										"variables": "{\r\n  \"doctorId\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\r\n  \"page\": 1,\r\n  \"limit\": 10\r\n}\r\n"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "369"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"171-eWl6XINj1gi9I1OUeHaBesjz2Mg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 20 Dec 2025 00:08:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"schedules\": {\n            \"items\": [\n                {\n                    \"id\": \"b0016795-cbb2-4599-a5ed-5bec47053220\",\n                    \"scheduledAt\": \"2025-12-21T10:00:00.000Z\",\n                    \"objective\": \"General consultation\",\n                    \"doctor\": {\n                        \"id\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\n                        \"name\": \"John Doe 8\"\n                    },\n                    \"customer\": {\n                        \"id\": \"852a55c7-a669-4506-bef9-cd5815591dee\",\n                        \"name\": \"Test Last\",\n                        \"email\": \"testlast@example.com\"\n                    }\n                }\n            ],\n            \"total\": 1,\n            \"page\": 1,\n            \"limit\": 10\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
