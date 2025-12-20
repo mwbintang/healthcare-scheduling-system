@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ProviderAbstract } from "../provider.abstract";
+import { DeleteResponse } from "../../common/dto/delete-response.entity";
 
 @Injectable()
 export class AuthenticationProvider extends ProviderAbstract {
@@ -56,10 +57,99 @@ export class AuthenticationProvider extends ProviderAbstract {
     }
   }
 
+  async updateEmail(id: string, email: string): Promise<AuthUser> {
+    try {
+      const query = `
+  mutation UpdateEmail($input: UpdateEmailInput!) {
+        updateEmail(input: $input) {
+          id
+          name
+          email
+        }
+      }
+`;
+
+      const response = await this.transporter.post(
+        "/graphql",
+        {
+          query,
+          variables: {
+            input: {
+              id,
+              email,
+            },
+          },
+        },
+        {
+          headers: {
+            "x-api-key": process.env.API_KEY,
+          },
+        },
+      );
+
+      if (response.data.errors) {
+        throw new UnauthorizedException(
+          response.data.errors[0].message,
+        );
+      }
+
+      return response.data.data.updateEmail;
+    } catch (error) {
+      console.error(
+        error.response?.data || error.message,
+      );
+      throw new UnauthorizedException("Invalid token");
+    }
+  }
+
+  async deleteUser(id: string): Promise<DeleteResponse> {
+    try {
+      const query = `
+  mutation DeleteUser($id: String!) {
+  deleteUser(id: $id) {
+    success
+    message
+  }
+}
+`;
+
+      const response = await this.transporter.post(
+        "/graphql",
+        {
+          query,
+          variables: {
+              id
+          },
+        },
+        {
+          headers: {
+            "x-api-key": process.env.API_KEY,
+          },
+        },
+      );
+
+      if (response.data.errors) {
+        throw new UnauthorizedException(
+          response.data.errors[0].message,
+        );
+      }
+
+      return response.data.data.deleteUser;
+    } catch (error) {
+      console.error(
+        error.response?.data || error.message, "popopopopo"
+      );
+      throw new UnauthorizedException("Invalid token");
+    }
+  }
 }
 
 export interface AuthUser {
   userId: string;
   email: string;
-  role?: string;
+}
+
+export interface UpdateEmail {
+  id: string;
+  email: string;
 }

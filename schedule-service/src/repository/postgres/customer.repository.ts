@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma } from "@prisma/client";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class CustomerRepository {
@@ -10,16 +10,35 @@ export class CustomerRepository {
     return this.prisma.customer.create({ data });
   }
 
-  findAll(skip: number, take: number) {
-    return this.prisma.customer.findMany({
-      skip,
-      take,
-    });
+  async findAll(skip: number, take: number) {
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.customer.findMany({
+        skip,
+        take,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      this.prisma.customer.count(),
+    ]);
+
+    return { data, total };
   }
 
   findById(id: string) {
     return this.prisma.customer.findUnique({
       where: { id },
+      include: {
+        schedules: {
+          include: {
+            doctor: true,
+            customer: true,
+          },
+          orderBy: {
+            scheduledAt: 'asc',
+          },
+        },
+      },
     });
   }
 
@@ -30,9 +49,17 @@ export class CustomerRepository {
     });
   }
 
-  delete(id: string) {
-    return this.prisma.customer.delete({
+  async delete(id: string): Promise<boolean> {
+    const result = await this.prisma.customer.deleteMany({
       where: { id },
+    });
+
+    return result.count > 0;
+  }
+
+  findByEmail(email: string) {
+    return this.prisma.customer.findUnique({
+      where: { email },
     });
   }
 }

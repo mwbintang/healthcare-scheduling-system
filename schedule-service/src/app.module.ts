@@ -9,6 +9,7 @@ import { CustomerModule } from './customer/customer.module';
 import { RepositoryModule } from './repository/repository.module';
 import { DoctorModule } from './doctor/doctor.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { ScheduleModule } from './schedule/schedule.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
-      sortSchema: true,
+      sortSchema: true
     }),
     GraphqlHealthModule,
     PrismaModule,
@@ -25,6 +26,7 @@ import { ScheduleModule } from './schedule/schedule.module';
     DoctorModule,
     ScheduleModule,
     RepositoryModule,
+    CommonModule
   ],
 })
 export class AppModule {}

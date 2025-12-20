@@ -2,8 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AuthPayload {
+type AuthUser {
+  profile: CustomerProfile!
   token: String!
+}
+
+type CustomerProfile {
+  email: String!
+  id: ID!
+  name: String
+}
+
+type DeleteResponse {
+  message: String!
+  success: Boolean!
 }
 
 input LoginInput {
@@ -12,8 +24,10 @@ input LoginInput {
 }
 
 type Mutation {
-  login(input: LoginInput!): AuthPayload!
-  register(input: RegisterInput!): AuthPayload!
+  deleteUser(id: String!): DeleteResponse!
+  login(input: LoginInput!): AuthUser!
+  register(input: RegisterInput!): AuthUser!
+  updateEmail(input: UpdateEmailInput!): CustomerProfile!
 }
 
 type Query {
@@ -23,10 +37,16 @@ type Query {
 
 input RegisterInput {
   email: String!
+  name: String!
   password: String!
 }
 
 type TokenValidationResult {
   email: String!
   userId: String!
+}
+
+input UpdateEmailInput {
+  email: String!
+  id: ID!
 }

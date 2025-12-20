@@ -2,20 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateCustomerInput {
-  email: String!
-  name: String!
-}
-
-input CreateDoctorInput {
-  name: String!
-}
-
 input CreateScheduleInput {
-  customerId: String!
-  doctorId: String!
+  doctorId: ID!
   objective: String!
-  scheduledAt: DateTime!
+  scheduledAt: String!
 }
 
 type Customer {
@@ -26,47 +16,137 @@ type Customer {
   updatedAt: DateTime!
 }
 
+type CustomerDetail {
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  name: String!
+  schedules: [ScheduleCustomer!]!
+  updatedAt: DateTime!
+}
+
+input CustomerInput {
+  email: String!
+  id: String!
+  name: String!
+}
+
+type CustomerPagination {
+  data: [Customer!]!
+  limit: Int!
+  page: Int!
+  total: Int!
+  totalPages: Int!
+}
+
+type CustomerSchedule {
+  email: String!
+  id: ID!
+  name: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
+type DeleteResponse {
+  message: String!
+  success: Boolean!
+}
+
 type Doctor {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type DoctorDetail {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  schedules: [ScheduleDoctor!]!
+  updatedAt: DateTime!
+}
+
+input DoctorInput {
+  name: String!
+}
+
+type DoctorPagination {
+  data: [Doctor!]!
+  limit: Int!
+  page: Int!
+  total: Int!
+  totalPages: Int!
+}
+
+type DoctorSchedule {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
 }
 
 type Mutation {
-  createCustomer(input: CreateCustomerInput!): Customer!
-  createDoctor(input: CreateDoctorInput!): Doctor!
+  createCustomer(input: CustomerInput!): Customer!
+  createDoctor(input: DoctorInput!): Doctor!
   createSchedule(input: CreateScheduleInput!): Schedule!
-  deleteCustomer(id: String!): Boolean!
-  deleteDoctor(id: String!): Boolean!
-  deleteSchedule(id: String!): Boolean!
-  updateCustomer(id: String!, input: UpdateCustomerInput!): Customer!
-  updateDoctor(id: String!, input: UpdateDoctorInput!): Doctor!
+  deleteCustomer: DeleteResponse!
+  deleteDoctor(id: String!): DeleteResponse!
+  deleteSchedule(id: ID!): DeleteResponse!
+  updateCustomer(input: CustomerInput!): Customer!
+  updateDoctor(id: String!, input: DoctorInput!): Doctor!
 }
 
 type Query {
-  customer(id: String!): Customer!
-  customers(limit: Float! = 10, page: Float! = 1): [Customer!]!
-  doctor(id: String!): Doctor!
-  doctors(limit: Float! = 10, page: Float! = 1): [Doctor!]!
+  customer(id: ID!): CustomerDetail!
+  customers(limit: Int! = 10, page: Int! = 1): CustomerPagination!
+  doctor(id: String!): DoctorDetail!
+  doctors(limit: Float! = 10, page: Float! = 1): DoctorPagination!
   health: String!
-  schedule(id: String!): Schedule!
-  schedules(customerId: String, doctorId: String, limit: Float! = 10, page: Float! = 1): [Schedule!]!
+  schedule(id: ID!): ScheduleDetail!
+  schedules(doctorId: ID, limit: Int! = 10, page: Int! = 1): SchedulePagination!
 }
 
 type Schedule {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  customer: Customer!
+  doctor: Doctor!
+  id: ID!
+  objective: String!
+  scheduledAt: String!
 }
 
-input UpdateCustomerInput {
-  email: String
-  name: String
+type ScheduleCustomer {
+  createdAt: DateTime!
+  customer: Customer!
+  doctor: DoctorSchedule!
+  id: ID!
+  objective: String!
+  scheduledAt: DateTime!
+  updatedAt: DateTime!
 }
 
-input UpdateDoctorInput {
-  name: String
+type ScheduleDetail {
+  customer: Customer!
+  doctor: Doctor!
+  id: ID!
+  objective: String!
+  scheduledAt: String!
+}
+
+type ScheduleDoctor {
+  createdAt: DateTime!
+  customer: CustomerSchedule!
+  id: ID!
+  objective: String!
+  scheduledAt: DateTime!
+}
+
+type SchedulePagination {
+  items: [Schedule!]!
+  limit: Int!
+  page: Int!
+  total: Int!
 }

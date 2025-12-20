@@ -9,7 +9,10 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       connectionString: process.env.DATABASE_URL as string,
     });
 
-    super({ adapter })
+    super({ 
+      adapter,
+      log: ['query', 'info', 'warn', 'error'], // <-- this enables query logging
+    })
   }
 
   async onModuleInit() {

@@ -6,7 +6,7 @@ import { ProviderModule } from '../provider/provider.module';
 import { CommonModule } from '../common/common.module';
 
 @Module({
-  imports: [RepositoryModule, ProviderModule, CommonModule],
+  imports: [RepositoryModule, ProviderModule, CommonModule, ProviderModule],
   providers: [CustomerService, CustomerResolver],
 })
 export class CustomerModule {}
