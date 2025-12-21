@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { AuthService } from './auth.service'
 import { AuthResolver } from './auth.resolver'
-import { RepositoryModule } from '../repository/repository.module'
-import { ProviderModule } from '../provider/provider.module'
+import { RepositoryModule } from '../../repository/repository.module'
+import { ProviderModule } from '../../provider/provider.module'
 
 @Module({
   imports: [

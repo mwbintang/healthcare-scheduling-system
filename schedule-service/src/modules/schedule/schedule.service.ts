@@ -1,9 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateScheduleInput } from './dto/create-schedule.input';
 import { Schedule, ScheduleDetail, SchedulePagination } from './entities/schedule.entity';
-import { ScheduleRepository } from '../repository/postgres/schedule.repository';
+import { ScheduleRepository } from '../../repository/postgres/schedule.repository';
 import { DoctorService } from '../doctor/doctor.service';
 import { CustomerService } from '../customer/customer.service';
+import { NotificationService } from '../notification/notification.service';
+import { notifType } from '../../../constants/type';
 
 @Injectable()
 export class ScheduleService {
@@ -11,11 +13,12 @@ export class ScheduleService {
     private readonly scheduleRepository: ScheduleRepository,
     private readonly doctorService: DoctorService,
     private readonly customerService: CustomerService,
-  ) {}
+    private readonly notificationService: NotificationService
+  ) { }
 
   // 🔹 Create schedule
-  async create(input: CreateScheduleInput & { customerId: string }): Promise<Schedule> {
-    const { doctorId, customerId, scheduledAt, objective } = input;
+  async create(input: CreateScheduleInput & { customerId: string, email: string }): Promise<Schedule> {
+    const { doctorId, customerId, scheduledAt, objective, email } = input;
 
     const doctor = await this.doctorService.findById(doctorId);
     if (!doctor) throw new NotFoundException('Doctor not found');
@@ -33,6 +36,12 @@ export class ScheduleService {
       customerId,
       scheduledAt: scheduledDate,
       objective,
+    });
+
+    await this.notificationService.sendSchedule({
+      email: email,
+      type: notifType.CREATE,
+      message: 'Your schedule has been successfully created',
     });
 
     return this.mapToGraphQL(created);
@@ -72,7 +81,7 @@ export class ScheduleService {
   }
 
   // 🔹 Delete
-  async delete(userId: string, id: string): Promise<void> {
+  async delete(userId: string, email: string, id: string): Promise<boolean> {
     const schedule = await this.scheduleRepository.findById(id);
     if (!schedule) throw new NotFoundException('Schedule not found');
 
@@ -81,7 +90,15 @@ export class ScheduleService {
       throw new BadRequestException('You do not have access to delete this schedule');
     }
 
-    await this.scheduleRepository.delete(id);
+    await this.notificationService.sendSchedule({
+      email,
+      type: notifType.DELETE,
+      message: 'Your schedule has been successfully deleted',
+    });
+
+    const result = await this.scheduleRepository.delete(id);
+
+    return result;
   }
 
   // 🔹 Helper to map DB result to GraphQL Schedule / ScheduleDetail

@@ -4,11 +4,11 @@ import { CustomerService } from './customer.service';
 import { Customer } from './entities/customer.entity';
 import { CustomerPagination } from './entities/customer.entity';
 import { CustomerDetail } from './entities/customer.entity';
-import { DeleteResponse } from '../common/dto/delete-response.entity';
+import { DeleteResponse } from '../../common/dto/delete-response.entity';
 import { CustomerInput } from './dto/customer.input';
-import { GqlAuthGuard } from '../common/guards/gql-auth.guard';
-import { GqlApiKeyGuard } from '../common/guards/gql-api-key.guard';
-import { GqlAuthOrApiKeyGuard } from '../common/guards/gql-auth-or-api-key.guard';
+import { GqlAuthGuard } from '../../common/guards/gql-auth.guard';
+import { GqlApiKeyGuard } from '../../common/guards/gql-api-key.guard';
+import { GqlAuthOrApiKeyGuard } from '../../common/guards/gql-auth-or-api-key.guard';
 
 @Resolver(() => Customer)
 export class CustomerResolver {

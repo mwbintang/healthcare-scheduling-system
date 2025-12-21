@@ -3,8 +3,8 @@ import { DoctorService } from './doctor.service';
 import { Doctor, DoctorDetail, DoctorPagination } from './entities/doctor.entity';
 import { DoctorInput } from './dto/doctor.input';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../common/guards/gql-auth.guard';
-import { DeleteResponse } from '../common/dto/delete-response.entity';
+import { GqlAuthGuard } from '../../common/guards/gql-auth.guard';
+import { DeleteResponse } from '../../common/dto/delete-response.entity';
 
 @Resolver(() => Doctor)
 @UseGuards(GqlAuthGuard)

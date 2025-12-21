@@ -52,8 +52,8 @@ POSTGRES_DB=auth_service_db
 SCHEDULE_DB=schedule_service_db
 
 # Internal service URLs (Docker network)
-AUTHENTICATION_SERVICE=http://auth-service:3001
-SCHEDULE_SERVICE=http://schedule-service:3002
+AUTHENTICATION_SERVICE=
+SCHEDULE_SERVICE=
 PORT=
 API_KEY=
 JWT_SECRET=

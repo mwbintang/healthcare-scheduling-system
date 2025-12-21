@@ -26,7 +26,7 @@
 									"}\r",
 									"\r",
 									"// Adjust path if your login mutation name is different\r",
-									"const token = response.data?.login?.token;\r",
+									"const token = response.data?.register?.token;\r",
 									"\r",
 									"if (token) {\r",
 									"    pm.environment.set(\"ACCESS_TOKEN\", token);\r",
@@ -48,7 +48,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation register {\r\n    register(\r\n    input: {\r\n      name: \"Test Last\"\r\n      email: \"testlast@example.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
+								"query": "mutation register {\r\n    register(\r\n    input: {\r\n      name: \"Test Last II\"\r\n      email: \"bintangmuhammadwahid@gmail.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
 								"variables": ""
 							}
 						},
@@ -1616,8 +1616,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation CreateSchedule {\r\n  createSchedule(\r\n    input: {\r\n      doctorId: \"470e6ae0-9932-48cd-a459-f0c78c4dd411\"\r\n      scheduledAt: \"2025-12-21T10:00:00.000Z\"\r\n      objective: \"General consultation\"\r\n    }\r\n  ) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n    }\r\n  }\r\n}\r\n",
-								"variables": "{\r\n  \"input\": {\r\n    \"doctorId\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\r\n    \"scheduledAt\": \"2025-12-21T10:00:00.000Z\",\r\n    \"objective\": \"General Consultation\"\r\n  }\r\n}\r\n"
+								"query": "mutation CreateSchedule {\r\n  createSchedule(\r\n    input: {\r\n      doctorId: \"0e047ca3-a05d-46a9-8c58-811641431572\"\r\n      scheduledAt: \"2025-12-21T08:59:01.000Z\"\r\n      objective: \"General consultation\"\r\n    }\r\n  ) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n    }\r\n  }\r\n}\r\n",
+								"variables": ""
 							}
 						},
 						"url": {
@@ -1902,12 +1902,105 @@
 					]
 				},
 				{
-					"name": "New Request",
+					"name": "Delete Schedule",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteSchedule {\r\n  deleteSchedule(\r\n    id:\"7ac6fd7e-e247-4e92-864c-429b8a81cc15\"\r\n  ) {\r\n    success\r\n    message\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"graphql"
+							]
+						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete Schedule Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation DeleteSchedule {\r\n  deleteSchedule(\r\n    id:\"7ac6fd7e-e247-4e92-864c-429b8a81cc15\"\r\n  ) {\r\n    success\r\n    message\r\n  }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3002/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3002",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57-H0hoz6KoYEsjnIvSQxcWQfg9FNo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 21 Dec 2025 10:36:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteSchedule\": {\n            \"success\": true,\n            \"message\": \"Schedule deleted successfully\"\n        }\n    }\n}"
+						}
+					]
 				}
 			]
 		}

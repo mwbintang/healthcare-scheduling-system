@@ -137,7 +137,7 @@ export class AuthenticationProvider extends ProviderAbstract {
       return response.data.data.deleteUser;
     } catch (error) {
       console.error(
-        error.response?.data || error.message, "popopopopo"
+        error.response?.data || error.message
       );
       throw new UnauthorizedException("Invalid token");
     }

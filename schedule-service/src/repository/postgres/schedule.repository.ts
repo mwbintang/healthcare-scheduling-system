@@ -79,7 +79,9 @@ export class ScheduleRepository {
   }
 
   // Delete schedule
-  async delete(id: string): Promise<void> {
-    await this.prisma.schedule.delete({ where: { id } });
+  async delete(id: string): Promise<boolean> {
+    const result = await this.prisma.schedule.deleteMany({ where: { id } });
+
+    return result.count > 0;
   }
 }

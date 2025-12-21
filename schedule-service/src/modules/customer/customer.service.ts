@@ -3,11 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CustomerRepository } from '../repository/postgres/customer.repository';
+import { CustomerRepository } from '../../repository/postgres/customer.repository';
 import { CustomerInput } from './dto/customer.input';
 import { Customer, CustomerDetail, CustomerPagination } from './entities/customer.entity';
-import { DeleteResponse } from '../common/dto/delete-response.entity';
-import { AuthenticationProvider } from '../provider/authentication/authentication.provider';
+import { DeleteResponse } from '../../common/dto/delete-response.entity';
+import { AuthenticationProvider } from '../../provider/authentication/authentication.provider';
 
 @Injectable()
 export class CustomerService {

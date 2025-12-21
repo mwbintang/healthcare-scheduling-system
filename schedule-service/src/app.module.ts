@@ -5,11 +5,13 @@ import { join } from 'path'
 import { GraphqlHealthModule } from './graphql-health/graphql-health.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProviderModule } from './provider/provider.module';
-import { CustomerModule } from './customer/customer.module';
+import { CustomerModule } from './modules/customer/customer.module';
 import { RepositoryModule } from './repository/repository.module';
-import { DoctorModule } from './doctor/doctor.module';
-import { ScheduleModule } from './schedule/schedule.module';
+import { DoctorModule } from './modules/doctor/doctor.module';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 import { CommonModule } from './common/common.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
@@ -26,7 +28,14 @@ import { CommonModule } from './common/common.module';
     DoctorModule,
     ScheduleModule,
     RepositoryModule,
-    CommonModule
+    CommonModule,
+    NotificationModule,
+    BullModule.forRoot({
+      connection: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+      },
+    })
   ],
 })
 export class AppModule {}

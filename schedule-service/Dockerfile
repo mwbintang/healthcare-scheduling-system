@@ -37,7 +37,7 @@ COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 
 # Expose service port (override via environment if needed)
 ARG PORT
-ENV PORT=${PORT:-3001}
+ENV PORT=${PORT:-3002}
 EXPOSE ${PORT}
 
 # Run migrations and start app

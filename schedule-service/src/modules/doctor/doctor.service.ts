@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { DoctorRepository } from "../repository/postgres/doctor.repository";
+import { DoctorRepository } from "../../repository/postgres/doctor.repository";
 import { DoctorInput } from "./dto/doctor.input";
 import { Doctor, DoctorDetail, DoctorPagination } from "./entities/doctor.entity";
-import { DeleteResponse } from "../common/dto/delete-response.entity";
+import { DeleteResponse } from "../../common/dto/delete-response.entity";
 
 @Injectable()
 export class DoctorService {
