@@ -169,7 +169,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation login {\r\n    login(\r\n    input: {\r\n      email: \"testlast@example.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
+								"query": "mutation login {\r\n    login(\r\n    input: {\r\n      email: \"bintangmuhammadwahid@gmail.com\",\r\n      password: \"test\"\r\n    }\r\n  )\r\n  {\r\n    token\r\n    profile {\r\n        email,\r\n        id,\r\n        name\r\n    }\r\n  }\r\n}",
 								"variables": ""
 							}
 						},
@@ -1616,7 +1616,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation CreateSchedule {\r\n  createSchedule(\r\n    input: {\r\n      doctorId: \"0e047ca3-a05d-46a9-8c58-811641431572\"\r\n      scheduledAt: \"2025-12-21T08:59:01.000Z\"\r\n      objective: \"General consultation\"\r\n    }\r\n  ) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n    }\r\n  }\r\n}\r\n",
+								"query": "mutation CreateSchedule {\r\n  createSchedule(\r\n    input: {\r\n      doctorId: \"0e047ca3-a05d-46a9-8c58-811641431572\"\r\n      scheduledAt: \"2025-11-12T10:00:01.000Z\"\r\n      objective: \"General consultation\"\r\n    }\r\n  ) {\r\n    id\r\n    scheduledAt\r\n    objective\r\n    doctor {\r\n      id\r\n      name\r\n    }\r\n    customer {\r\n      id\r\n      name\r\n    }\r\n  }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -1818,8 +1818,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Schedules($doctorId: ID, $page: Int, $limit: Int) {\r\n  schedules(doctorId: $doctorId, page: $page, limit: $limit) {\r\n    items {\r\n      id\r\n      scheduledAt\r\n      objective\r\n      doctor {\r\n        id\r\n        name\r\n      }\r\n      customer {\r\n        id\r\n        name\r\n        email\r\n      }\r\n    }\r\n    total\r\n    page\r\n    limit\r\n  }\r\n}\r\n",
-								"variables": "{\r\n  \"doctorId\": \"470e6ae0-9932-48cd-a459-f0c78c4dd411\",\r\n  \"page\": 1,\r\n  \"limit\": 10\r\n}\r\n"
+								"query": "query Schedules($page: Int, $limit: Int) {\r\n  schedules(page: $page, limit: $limit) {\r\n    items {\r\n      id\r\n      scheduledAt\r\n      objective\r\n      doctor {\r\n        id\r\n        name\r\n      }\r\n      customer {\r\n        id\r\n        name\r\n        email\r\n      }\r\n    }\r\n    total\r\n    page\r\n    limit\r\n  }\r\n}\r\n",
+								"variables": "{\r\n  \"page\": 1,\r\n  \"limit\": 10\r\n}\r\n"
 							}
 						},
 						"url": {
@@ -1919,7 +1919,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation DeleteSchedule {\r\n  deleteSchedule(\r\n    id:\"7ac6fd7e-e247-4e92-864c-429b8a81cc15\"\r\n  ) {\r\n    success\r\n    message\r\n  }\r\n}",
+								"query": "mutation DeleteSchedule {\r\n  deleteSchedule(\r\n    id:\"0a7701a2-3776-442f-ac7c-54e196ad3e4c\"\r\n  ) {\r\n    success\r\n    message\r\n  }\r\n}",
 								"variables": ""
 							}
 						},

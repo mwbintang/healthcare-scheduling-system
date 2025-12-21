@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
-import { NOTIFICATION_QUEUE, notifType } from '../../../constants/type';
+import { NOTIFICATION_QUEUE, notifType } from '../../constants/type';
 
 @Injectable()
 export class NotificationService {

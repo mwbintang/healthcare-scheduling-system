@@ -47,13 +47,11 @@ export class ScheduleResolver {
   @Query(() => SchedulePagination)
   schedules(
     @Context() ctx: any,
-    @Args('doctorId', { type: () => ID, nullable: true }) doctorId?: string,
     @Args('page', { type: () => Int, defaultValue: 1 }) page?: number,
     @Args('limit', { type: () => Int, defaultValue: 10 }) limit?: number,
   ): Promise<SchedulePagination> {
     const user = ctx.req.user;
     return this.scheduleService.findAll({
-      doctorId,
       customerId: user.userId,
       page,
       limit,

@@ -3,7 +3,6 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 
 interface FindAllParams {
-  doctorId?: string;
   customerId?: string;
   skip?: number;
   take?: number;
@@ -44,11 +43,10 @@ export class ScheduleRepository {
 
   // Find all with filters and pagination
   async findAll(params: FindAllParams): Promise<any[]> {
-    const { doctorId, customerId, skip = 0, take = 10 } = params;
+    const { customerId, skip = 0, take = 10 } = params;
 
     return this.prisma.schedule.findMany({
       where: {
-        doctorId,
         customerId,
       },
       include: { doctor: true, customer: true },
