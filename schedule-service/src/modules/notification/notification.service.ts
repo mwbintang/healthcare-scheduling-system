@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
 import { NOTIFICATION_QUEUE, notifType } from '../../constants/type';
 
 @Injectable()
 export class NotificationService {
+  private readonly logger = new Logger(NotificationService.name);
   constructor(
     @InjectQueue(NOTIFICATION_QUEUE)
-    private readonly queue: Queue,
+    private readonly queue: Queue
   ) { }
 
   async sendSchedule(payload: {
@@ -30,7 +31,7 @@ export class NotificationService {
         },
       );
     } catch (error) {
-      console.error(error);
+      this.logger.error(error);
     }
   }
 }

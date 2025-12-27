@@ -30,7 +30,7 @@ export class MailService {
       this.logger.log(`📨 Email sent to ${to}`);
       return info;
     } catch (error) {
-      console.error(error);
+      this.logger.error(error);
     }
   }
 }

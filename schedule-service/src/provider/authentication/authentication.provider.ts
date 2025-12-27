@@ -1,9 +1,10 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { ProviderAbstract } from "../provider.abstract";
 import { DeleteResponse } from "../../common/dto/delete-response.entity";
 
 @Injectable()
 export class AuthenticationProvider extends ProviderAbstract {
+  private readonly logger = new Logger(AuthenticationProvider.name)
   constructor() {
     const baseUrl = process.env.AUTHENTICATION_SERVICE;
 
@@ -50,7 +51,7 @@ export class AuthenticationProvider extends ProviderAbstract {
 
       return response.data.data.validateToken;
     } catch (error) {
-      console.error(
+      this.logger.error(
         error.response?.data || error.message,
       );
       throw new UnauthorizedException("Invalid token");
@@ -95,7 +96,7 @@ export class AuthenticationProvider extends ProviderAbstract {
 
       return response.data.data.updateEmail;
     } catch (error) {
-      console.error(
+      this.logger.error(
         error.response?.data || error.message,
       );
       throw new UnauthorizedException("Invalid token");
@@ -118,7 +119,7 @@ export class AuthenticationProvider extends ProviderAbstract {
         {
           query,
           variables: {
-              id
+            id
           },
         },
         {
@@ -136,7 +137,7 @@ export class AuthenticationProvider extends ProviderAbstract {
 
       return response.data.data.deleteUser;
     } catch (error) {
-      console.error(
+      this.logger.error(
         error.response?.data || error.message
       );
       throw new UnauthorizedException("Invalid token");

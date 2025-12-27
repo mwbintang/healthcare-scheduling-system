@@ -1,6 +1,6 @@
 import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
-import { NOTIFICATION_QUEUE } from 'src/contsants/type';
+import { NOTIFICATION_QUEUE } from 'src/constants/type';
 import { NotificationProcessor } from './notification.processor';
 import { MailService } from 'src/services/mail.service';
 
