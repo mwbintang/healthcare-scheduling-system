@@ -1,6 +1,6 @@
 import { Query, Resolver } from '@nestjs/graphql'
-import { PrismaService } from '../prisma/prisma.service'
 import { InternalServerErrorException } from '@nestjs/common'
+import { PrismaService } from '../../prisma/prisma.service'
 
 @Resolver()
 export class GraphqlHealthResolver {
@@ -13,7 +13,7 @@ export class GraphqlHealthResolver {
     try {
       // lightweight DB check
       await this.prisma.$queryRaw`SELECT 1`
-      return 'Auth service is healthy'
+      return 'Schedule service is healthy'
     } catch (error) {
       throw new InternalServerErrorException('Database unavailable')
     }

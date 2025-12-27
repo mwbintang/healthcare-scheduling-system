@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
-import { GraphqlHealthModule } from './graphql-health/graphql-health.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProviderModule } from './provider/provider.module';
 import { CustomerModule } from './modules/customer/customer.module';
@@ -12,6 +11,7 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
 import { CommonModule } from './common/common.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { BullModule } from '@nestjs/bullmq';
+import { GraphqlHealthModule } from './modules/graphql-health/graphql-health.module';
 
 @Module({
   imports: [

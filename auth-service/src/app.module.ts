@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
-import { GraphqlHealthModule } from './graphql-health/graphql-health.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RepositoryModule } from './repository/repository.module';
+import { GraphqlHealthModule } from './modules/graphql-health/graphql-health.module';
 
 @Module({
   imports: [
